@@ -54,6 +54,7 @@ $errors = "";
 
     #User registration
     if ($errors == NULL) {
+        $password = randomPassword();
         $stmt = $mysqli->prepare("INSERT INTO members(name, surname, email, age, sex, country, city, postcode, password) VALUES (?,?,?,?,?,?,?,?,?)");
         $stmt->bind_param('sssisssis', $name,
             $surname,
@@ -63,7 +64,7 @@ $errors = "";
             $country,
             $city,
             $postcode,
-            $country);
+            $password);
         if ($stmt->execute()) {
             echo 'Registration Successful!';
             $stmt->close();
@@ -73,6 +74,17 @@ $errors = "";
         }
     }else{
         echo '<p>Registration failed due reasons below:</p>'.$errors;
+    }
+
+    function randomPassword() {
+        $chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $pass = array();
+        $charsLength = strlen($chars) - 1;
+        for ($i = 0; $i < 8; $i++) {
+            $n = rand(0, $charsLength);
+            $pass[] = $chars[$n];
+        }
+        return implode($pass);
     }
 
 unset($_SESSION['captcha']);
