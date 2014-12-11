@@ -7,21 +7,65 @@
  */
 require('connect.php');
 
-    if (isset($_POST['name'])){
+# Post variables
+$name = $_POST['name'];
+$surname = $_POST['surname'];
+$email = $_POST['email'];
+$age = $_POST['age'];
+$sex = $_POST['sex'];
+$country = $_POST['country'];
+$city = $_POST['city'];
+$postcode = $_POST['postcode'];
+$country = $_POST['country'];
 
+$errors = "";
+
+    #Name variable validation
+    if ($name == NULL || strlen($name) > 20 || !preg_match('/^[a-zA-ZÀ-ž -]*$/',$name)) {
+        $errors .= '<p>* Inserted Name is invalid</p>';
+    }
+
+    #Surname variable validation
+    if ($surname == NULL || strlen($surname) > 20 || !preg_match('/^[a-zA-ZÀ-ž -]*$/',$surname)) {
+        $errors .= '<p>* Inserted Surname is invalid</p>';
+    }
+
+    #E-mail variable validation
+    if ($email == NULL || strlen($email) > 30 || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $errors .= '<p>* Inserted E-mail is invalid</p>';
+    }
+
+    #Ciy variable validation
+    if ($city == NULL || strlen($city) > 20 || !preg_match('/^[a-zA-ZÀ-ž -]*$/',$city)) {
+        $errors .= '<p>* Inserted City is invalid</p>';
+    }
+
+    #Surname variable validation
+    if ($postcode == NULL || strlen($postcode) > 10 || !preg_match('/^[0-9]*$/',$postcode)) {
+        $errors .= '<p>* Inserted postcode is invalid</p>';
+    }
+
+    #User registration
+    if ($errors == NULL) {
         $stmt = $mysqli->prepare("INSERT INTO members(name, surname, email, age, sex, country, city, postcode, password) VALUES (?,?,?,?,?,?,?,?,?)");
-
-        $stmt->bind_param('sssisssis', $_POST['name'],
-                $_POST['surname'],
-                $_POST['email'],
-                $_POST['age'],
-                $_POST['sex'],
-                $_POST['country'],
-                $_POST['city'],
-                $_POST['postcode'],
-                $_POST['country']);
-        $stmt->execute();
-        $stmt->close();
+        $stmt->bind_param('sssisssis', $name,
+            $surname,
+            $email,
+            $age,
+            $sex,
+            $country,
+            $city,
+            $postcode,
+            $country);
+        if ($stmt->execute()) {
+            echo 'Registration Successful!';
+            $stmt->close();
+        } else {
+            echo 'Registration Failed: Database error';
+            $stmt->close();
+        }
+    }else{
+        echo '<p>Registration failed due reasons below:</p>'.$errors;
     }
 
 ?>

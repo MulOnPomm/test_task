@@ -11,17 +11,17 @@
         <table border = 0>
             <tr>
                 <td>Name</td>
-                <td><input type="text" name="name" ng-model="name" ng-maxlength=10 ng-pattern="/^[a-zA-ZÀ-ž -]*$/" placeholder="Name" required></td>
+                <td><input type="text" name="name" ng-model="name" ng-maxlength=20 ng-pattern="/^[a-zA-ZÀ-ž -]*$/" placeholder="Name" required></td>
                 <td><span style="color:red" ng-show="registerForm.name.$dirty && registerForm.name.$invalid"><span ng-show="registerForm.name.$error.required">Name is required.</span><span ng-show="registerForm.name.$error.pattern">Name must contain only alphabetic letters.</span><span ng-show="registerForm.name.$error.maxlength">Name too long.</span></span></td>
             </tr>
             <tr>
                 <td>Surname</td>
-                <td><input type="text" name="surname" ng-model="surname" ng-maxlength=10 ng-pattern="/^[a-zA-ZÀ-ž -]*$/" placeholder="Surname" ng-pattern="[a-zA-Z]" required></td>
+                <td><input type="text" name="surname" ng-model="surname" ng-maxlength=20 ng-pattern="/^[a-zA-ZÀ-ž -]*$/" placeholder="Surname" ng-pattern="[a-zA-Z]" required></td>
                 <td><span style="color:red" ng-show="registerForm.surname.$dirty && registerForm.surname.$invalid"><span ng-show="registerForm.surname.$error.required">Surname is required.</span><span ng-show="registerForm.surname.$error.pattern">Surname must contain only alphabetic letters.</span><span ng-show="registerForm.surname.$error.maxlength">Surname too long.</span></span></td>
             </tr>
             <tr>
                 <td>Email</td>
-                <td><input type="email" name="email" ng-model="email" ng-maxlength=10 placeholder="E-mail" required></td>
+                <td><input type="email" name="email" ng-model="email" ng-maxlength=30 placeholder="E-mail" required></td>
                 <td><span style="color:red" ng-show="registerForm.email.$dirty && registerForm.email.$invalid"><span ng-show="registerForm.email.$error.required">Email is required.</span><span ng-show="registerForm.email.$error.email">Invalid email address.</span><span ng-show="registerForm.email.$error.maxlength">E-mail too long.</span></span></td>
             </tr>
             <tr>
@@ -41,7 +41,7 @@
             </tr>
             <tr>
                 <td>City</td>
-                <td><input type="text" name="city" ng-model="city" ng-maxlength=10 ng-pattern="/^[a-zA-ZÀ-ž -]*$/" placeholder="City" ng-pattern="[a-zA-Z]" required></td>
+                <td><input type="text" name="city" ng-model="city" ng-maxlength=20 ng-pattern="/^[a-zA-ZÀ-ž -]*$/" placeholder="City" ng-pattern="[a-zA-Z]" required></td>
                 <td><span style="color:red" ng-show="registerForm.city.$dirty && registerForm.city.$invalid"><span ng-show="registerForm.city.$error.required">City is required.</span><span ng-show="registerForm.city.$error.pattern">City must contain only alphabetic letters.</span><span ng-show="registerForm.city.$error.maxlength">City too long.</span></span></td>
             </tr>
             <tr>
@@ -69,6 +69,7 @@
 <?php
 
     function getAges(){
+        $ages = 0;
         for ($x = 18; $x <= 65; $x++) {
             $ages .= '<option value="'.$x.'">'.$x.'</option>';
         }
@@ -85,7 +86,5 @@
             $scope.city = '';
             $scope.postcode = '';
             $scope.captcha = '';
-
-
         }
     </script>
