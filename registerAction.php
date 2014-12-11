@@ -66,8 +66,9 @@ $errors = "";
             $postcode,
             $password);
         if ($stmt->execute()) {
-            echo 'Registration Successful!';
             $stmt->close();
+            echo 'Registration Successful!';
+            sendRegistrationEmail($email, $name, $surname, $age, $sex, $country, $city, $postcode, $password);
         } else {
             echo 'Registration Failed: Database error';
             $stmt->close();
@@ -85,6 +86,69 @@ $errors = "";
             $pass[] = $chars[$n];
         }
         return implode($pass);
+    }
+
+    function sendRegistrationEmail($email, $name, $surname, $age, $sex, $country, $city, $postcode, $password){
+        $to = $email;
+        $subject = "Registration Details!";
+
+        $message = '
+        <html>
+        <head>
+            <title>Thank you for registration</title>
+        </head>
+        <body>
+            <p><h3>Thank you for registration!</h3></p>
+            <p>See your registration details below</p>
+            <table>
+                <tr>
+                    <td><b>Name</b></td>
+                    <td>'.$name.'</td>
+                </tr>
+                <tr>
+                    <td><b>Surname</b></td>
+                    <td>'.$surname.'</td>
+                </tr>
+                <tr>
+                    <td><b>E-mail</b></td>
+                    <td>'.$email.'</td>
+                </tr>
+                 <tr>
+                    <td><b>Age</b></td>
+                    <td>'.$age.'</td>
+                </tr>
+                <tr>
+                    <td><b>Sex</b></td>
+                    <td>'.$sex.'</td>
+                </tr>
+                <tr>
+                    <td><b>Country</b></td>
+                    <td>'.$country.'</td>
+                </tr>
+                <tr>
+                    <td><b>City</b></td>
+                    <td>'.$city.'</td>
+                </tr>
+                <tr>
+                    <td><b>Postcode</b></td>
+                    <td>'.$postcode.'</td>
+                </tr>
+                <tr>
+                    <td><b>Password</b></td>
+                    <td>'.$password.'</td>
+                </tr>
+            </table>
+        </body>
+        </html>
+        ';
+
+
+        $headers = "MIME-Version: 1.0" . "\r\n";
+        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+
+        $headers .= 'From: <webmaster@test.com>' . "\r\n";
+
+        mail($to,$subject,$message,$headers);
     }
 
 unset($_SESSION['captcha']);
