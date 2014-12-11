@@ -110,6 +110,16 @@
         </form>
     </div>
 </body>
+<script>
+    function validateController($scope) {
+        $scope.name = '';
+        $scope.surname = '';
+        $scope.email = '';
+        $scope.city = '';
+        $scope.postcode = '';
+        $scope.captcha = '';
+    }
+</script>
 </html>
 <?php
 
@@ -123,13 +133,4 @@
 
 ?>
 
-    <script>
-        function validateController($scope) {
-            $scope.name = '';
-            $scope.surname = '';
-            $scope.email = '';
-            $scope.city = '';
-            $scope.postcode = '';
-            $scope.captcha = '';
-        }
-    </script>
+

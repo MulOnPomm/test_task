@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: IBM-PC
- * Date: 10.12.2014
- * Time: 15:54
- */
 $mysqli = new mysqli("localhost", "test", "t35t", "test");
 
 /* check connection */
