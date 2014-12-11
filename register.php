@@ -55,7 +55,7 @@
                 <td><span style="color:red" ng-show="registerForm.captcha.$dirty && registerForm.captcha.$invalid"><span ng-show="registerForm.captcha.$error.required">Captcha is required.</span></span></td>
             </tr>
             <tr>
-                <td>Captcha</td>
+                <td><img src="captcha/captcha.php" /></td>
                 <td></td>
             </tr>
             <tr>

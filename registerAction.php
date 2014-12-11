@@ -5,6 +5,7 @@
  * Date: 10.12.2014
  * Time: 16:55
  */
+session_start();
 require('connect.php');
 
 # Post variables
@@ -17,6 +18,7 @@ $country = $_POST['country'];
 $city = $_POST['city'];
 $postcode = $_POST['postcode'];
 $country = $_POST['country'];
+$captcha = $_POST['captcha'];
 
 $errors = "";
 
@@ -40,9 +42,14 @@ $errors = "";
         $errors .= '<p>* Inserted City is invalid</p>';
     }
 
-    #Surname variable validation
+    #Postcode variable validation
     if ($postcode == NULL || strlen($postcode) > 10 || !preg_match('/^[0-9]*$/',$postcode)) {
         $errors .= '<p>* Inserted postcode is invalid</p>';
+    }
+
+    #Captcha variable validation
+    if ($captcha != $_SESSION['code']) {
+        $errors .= '<p>* Inserted captcha is invalid</p>';
     }
 
     #User registration
@@ -68,4 +75,5 @@ $errors = "";
         echo '<p>Registration failed due reasons below:</p>'.$errors;
     }
 
+unset($_SESSION['captcha']);
 ?>
